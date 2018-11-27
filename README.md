@@ -6,14 +6,14 @@ new features :
 - memberikan sifat ketergantungan antar field (dependensi)
 
 notes field yang terindikasi dependensi:
-Bagian Perencanaan : bisa diisi jika sudah melakukan upload gambar dan bukti bayar
+- Bagian Perencanaan : bisa diisi jika sudah melakukan upload gambar dan bukti bayar
   1. field Tgl Kirim NODIN(PK) ke KON dari REN
   2. field Tgl Kirim NODIN(PK) ke Pengadaan dari REN
   3. field No. Nota Dinas
-Bagian Konstruksi :
+- Bagian Konstruksi :
   1. field Tgl Kirim Nota Dinas(PK) ke Vendor
   2. field Nama Vendor Pelaksana
   3. field Nomor SPK
-Bagian Rayon :
+- Bagian Rayon :
   1. field Tanggal Nyala
   2. field Tanggal PDL
