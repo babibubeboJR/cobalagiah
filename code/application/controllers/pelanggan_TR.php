@@ -396,13 +396,109 @@ class Pelanggan_TR extends CI_Controller
 			$this->load->model('m_pelanggantr');
 			$status = $this->m_pelanggantr->showdataedit($data['a'])->row();
 			$hasil=$this->m_pelanggantr->updatetrtodb($data);
-			$hasil=$this->m_pelanggantr->updatetrtodb($data);
-			$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+
+			//SYARAT RAB
+			if ($status->NO_NOTADINAS == "") {
+				if ($data['p2'] != "" || $data['q2'] != "" || $data['u2'] != "") { 
+					if ($data['u2'] == "") {
+						$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						Mohon input data No. Nota Dinas dan data tgl kirim NODIN ke KON atau data tgl kirim NODIN ke pengadaan bersamaan </b>
+						</div>";
+						redirect('pelanggan_tr/editdata/'.$data['a'].'');
+					}
+					else{
+						if (($data['p2'] == "" && $data['q2'] == "")) {
+							$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+							Mohon input data No. Nota Dinas dan data tgl kirim NODIN ke KON atau data tgl kirim NODIN ke pengadaan bersamaan </b>
+							</div>";
+							redirect('pelanggan_tr/editdata/'.$data['a'].'');
+						}else{
+							$hasil=$this->m_pelanggantr->updatetrtodb($data);
+							$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+							Data pelanggan atas nama ".$data['d']." berhasil Diupdate </b>
+							</div>";
+							redirect('c_email/send_email_override/' .$data['a'] .'/RAB/TR');
+						}
+
+					}
+				}
+				else{
+					$hasil=$this->m_pelanggantr->updatetrtodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, mohon input data rab </b>
+					</div>";
+					redirect('pelanggan_tr/editdata/'.$data['a'].'');
+				}
+			}
+			//END SYARAT RAB
+			
+			//SYARAT PELAKSANAAN
+			elseif ($status->NO_SPK == "" || $status->TGL_NOTDINKEVENDOR == "" || $status->NAMA_VENDORPELAK == "") {
+				if ($data['a3'] == "" && $data['b3'] == "" && $data['c3'] == "") {
+					$hasil=$this->m_pelanggantr->updatetrtodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, Mohon input data pelaksaaan </b>
+					</div>";
+					redirect('pelanggan_tr/editdata/'.$data['a'].'');
+				}elseif($data['a3'] != "" && $data['b3'] != "" && $data['c3'] != ""){
+					$hasil=$this->m_pelanggantr->updatetrtodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, mohon input data nyala</b>
+					</div>";
+					redirect('c_email/send_email_override/' .$data['a'] .'/Pelaksanaan/TR');
+				}else{
+					$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Mohon input data Pelaksanaan bersamaan</b>
+					</div>";
+					redirect('pelanggan_tr/editdata/'.$data['a'].'');
+				}
+			}
+			//END SYARAT PELAKSANAAN
+			
+			//SYARAT NYALA
+			elseif($status->TGL_NYALA == "" || $status->TGL_PDL == ""){
+				if ($data['m'] == "" && $data['n'] == "") {
+					$hasil=$this->m_pelanggantr->updatetrtodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, Mohon input data nyala </b>
+					</div>";
+					redirect('pelanggan_tr/editdata/'.$data['a'].'');
+					
+				}elseif ($data['m'] != "" && $data['n'] != "") {
+					$hasil=$this->m_pelanggantr->updatetrtodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate</b>
+					</div>";
+					redirect('c_email/send_email_override/' .$data['a'] .'/Nyala/TR');
+				}else{
+					$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Mohon input data Nyala bersamaan</b>
+					</div>";
+					redirect('pelanggan_tr/editdata/'.$data['a'].'');
+				}
+			}
+			//END SYARAT NYALA
+			
+			else{
+				$hasil=$this->m_pelanggantr->updatetrtodb($data);
+				$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 				Data pelanggan atas nama ".$data['d']." berhasil Diupdate</b>
 				</div>";
-			redirect('pelanggan_tr/editdata/'.$data['a'].'');
+				redirect('pelanggan_tr/editdata/'.$data['a'].'');
+			}
 		}
+
 
 		function saveaddlokasi()
 		{
