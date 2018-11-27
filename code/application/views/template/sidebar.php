@@ -22,36 +22,15 @@
 			</a>
 		</li>
 		<?php } ?>
+
 		<li class="<?php echo $side3; ?> ">
 			<a href="<?php echo base_url()?>pelanggan_TR">
 				<i class="fa fa-group"></i>
-				<span class="title">Pelanggan TR</span>
-				<span class="selected"></span>
-			</a>
-		</li>
-		<li class="<?php echo $side4; ?> ">
-			<a href="<?php echo base_url()?>pelanggan_TM">
-				<i class="fa fa-group"></i>
-				<span class="title">Pelanggan TM</span>
-				<span class="selected"></span>
-			</a>
-		</li>
-		<li class="<?php echo $side5; ?> ">
-			<a href="<?php echo base_url()?>kolektif">
-				<i class="fa fa-group"></i>
-				<span class="title">Pelanggan Kolektif</span>
+				<span class="title">Detail Pelanggan</span>
 				<span class="selected"></span>
 			</a>
 		</li>
 
-		<li class="<?php echo $side6; ?>">
-			<a href="<?php echo base_url()?>c_filter">
-				<i class="fa fa-filter"></i>
-				<span class="title">Filter</span>
-				<span class="selected"></span>
-			</a>
-		</li>
-		
 		<li class="" id="notifbar">
 			<a class="notification" id="notification-toggler">
 				<i class="fa fa-bell"></i>
@@ -60,12 +39,14 @@
 			</a>
 		</li>
 		<div class="collapse multi-collapse" id="notif">
-			<div class="list-group scrollnotif" style="width: 100%;margin:0" id="notif_isi"></div>
+			<div class="list-group scrollnotif" style="width: 100%;margin:0" id="notif_isi">
+			</div>
 			<div align="center">
 				<span class="btn btn-primary btn-sm" id="load3"><img width="16px" src="<?php echo base_url(); ?>/assets/img/ajax-loading.gif"/>&nbsp;</span>
 			</div>
+
 		</div>
-		
+
 		<li class="last" id='messagebar'>
 			<a class="chat" id="chat-toggler">
 				<i class="fa fa-comment"></i>
@@ -95,7 +76,6 @@
 			</div>
 
 		</div>
-
 	</ul>
 	<!-- END SIDEBAR MENU -->
 </div>
