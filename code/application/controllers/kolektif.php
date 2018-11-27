@@ -73,7 +73,7 @@ class Kolektif extends CI_Controller
 		$data['code']="1";
 		$data['side1']="";
 		$data['side2']="";
-$data['side3']="";
+		$data['side3']="";
 		$data['side4']="";
 		$data['side5']="active";
 		$data['side6']="";
@@ -192,9 +192,9 @@ $data['side3']="";
 			$data['side1']="";
 			$data['side2']="";
 			$data['side3']="";
-		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
+			$data['side4']="";
+			$data['side5']="active";
+			$data['side6']="";
 
 			$this->template->display('dashboard_menu/v_pelkol',$data);
 		}
@@ -208,7 +208,7 @@ $data['side3']="";
 		}
 	}
 
-		
+	
 	function searching()
 	{
 			$this->load->library('form_validation'); //load library form_validation
@@ -223,9 +223,9 @@ $data['side3']="";
 				$data['side1']="";
 				$data['side2']="";
 				$data['side3']="";
-		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
+				$data['side4']="";
+				$data['side5']="active";
+				$data['side6']="";
 
 
 				$this->template->display('kolektif/index',$data);
@@ -323,9 +323,9 @@ $data['side3']="";
 			$data['side1']="";
 			$data['side2']="";
 			$data['side3']="";
-		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
+			$data['side4']="";
+			$data['side5']="active";
+			$data['side6']="";
 
 			
 			$data['upload']=$this->m_kolektif->datauploadfromdb($id);
@@ -395,12 +395,109 @@ $data['side3']="";
 			$data['l3']=$this->input->post('l3');
 			$this->load->model('m_kolektif');
 			$status = $this->m_kolektif->showdataedit($data['a'])->row();
+
+			//SYARAT RAB
+			if ($status->NO_NOTADINAS == "") {
+				if ($data['r2'] != "" || $data['s2'] != "" || $data['w2'] != "") {
+					if ($data['w2'] == "") {
+						$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						Mohon input data No. Nota Dinas dan data tgl kirim NODIN ke KON atau data tgl kirim NODIN ke pengadaan bersamaan </b>
+						</div>";
+						redirect('kolektif/editdata/'.$data['a'].'');
+					}else{
+						if (($data['r2'] == "" && $data['s2'] == "")) {
+							$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+							Mohon input data No. Nota Dinas dan data tgl kirim NODIN ke KON atau data tgl kirim NODIN ke pengadaan bersamaan </b>
+							</div>";
+							redirect('kolektif/editdata/'.$data['a'].'');
+						}else{
+							$hasil=$this->m_kolektif->updatekoltodb($data);
+							$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+							Data pelanggan atas nama ".$data['d']." berhasil Diupdate </b>
+							</div>";
+							redirect('c_email/send_email_override/' .$data['a'] .'/RAB/KOLEKTIF');
+						}
+
+					}
+				}else{
+					$hasil=$this->m_kolektif->updatekoltodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, mohon input data rab </b>
+					</div>";
+					redirect('kolektif/editdata/'.$data['a'].'');
+				}
+			}
+			//END SYARAT RAB
+			
+			//SYARAT PELAKSANAAN
+			elseif ($status->NO_SPK == "" || $status->TGL_NOTDINKEVENDOR == "" || $status->NAMA_VENDORPELAK == "") {
+				if ($data['a3'] == "" && $data['b3'] == "" && $data['c3'] == "") {
+					$hasil=$this->m_kolektif->updatekoltodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, Mohon input data pelaksaaan </b>
+					</div>";
+					redirect('kolektif/editdata/'.$data['a'].'');
+				}elseif($data['a3'] != "" && $data['b3'] != "" && $data['c3'] != ""){
+					$hasil=$this->m_kolektif->updatekoltodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, mohon input data nyala</b>
+					</div>";
+					redirect('c_email/send_email_override/' .$data['a'] .'/Pelaksanaan/KOLEKTIF');
+				}else{
+					$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Mohon input data Pelaksanaan bersamaan</b>
+					</div>";
+					redirect('kolektif/editdata/'.$data['a'].'');
+				}
+			}
+			//END SYARAT PELAKSANAAN
+			
+			//SYARAT NYALA
+			elseif($status->TGL_NYALA == "" || $status->TGL_PDL == ""){
+				if ($data['m'] == "" && $data['n'] == "") {
+					$hasil=$this->m_kolektif->updatekoltodb($data);
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate, Mohon input data nyala </b>
+					</div>";
+					redirect('kolektif/editdata/'.$data['a'].'');
+				}elseif ($data['m'] != "" && $data['n'] != "") {
+					$hasil=$this->m_kolektif->updatekoltodb($data);
+					date_default_timezone_set('Asia/Jakarta');
+					$tanggal = date('d-m-Y');
+					$nama_rayon = $this->cek_nama_rayon($data['m']);
+					$pesan_kesan = "Pelanggan KOLEKTIF atas nama " .$data['d'] ." dengan alamat " .$data['e'] ." pada " .$nama_rayon ." telah nyala pada " .$tanggal;
+					$subject = "DATA NYALA";
+					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Data pelanggan atas nama ".$data['d']." berhasil Diupdate</b>
+					</div>";
+					redirect('c_email/send_email_override/' .$data['a'] .'/Nyala/KOLEKTIF');
+				}else{
+					$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					Mohon input data Nyala bersamaan</b>
+					</div>";
+					redirect('kolektif/editdata/'.$data['a'].'');
+				}
+			}
+			//END SYARAT NYALA
+			
+			else{
 				$hasil=$this->m_kolektif->updatekoltodb($data);
 				$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 				Data pelanggan atas nama ".$data['d']." berhasil Diupdate</b>
 				</div>";
 				redirect('kolektif/editdata/'.$data['a'].'');
+			}
 		}
 		
 		function saveaddlokasi()

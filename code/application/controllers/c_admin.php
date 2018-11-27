@@ -21,8 +21,88 @@ class c_admin extends CI_Controller
 		$data['side4']="";
 		$data['side5']="";
 		$data['side6']="";
+
+		$temp = $this->calculate_category();
+        //TR
+		$data['total_data_belum_survey_TR'] = $temp['total_data_belum_survey_TR'];
+		$data['total_data_belum_bayar_TR'] = $temp['total_data_belum_bayar_TR'];
+		$data['total_data_belum_rab_TR'] = $temp['total_data_belum_rab_TR'];
+		$data['total_data_belum_pelaksanaan_TR'] = $temp['total_data_belum_pelaksanaan_TR'];
+		$data['total_data_belum_nyala_TR'] = $temp['total_data_belum_nyala_TR'];
+		//TM
+		$data['total_data_belum_survey_TM'] = $temp['total_data_belum_survey_TM'];
+		$data['total_data_belum_bayar_TM'] = $temp['total_data_belum_bayar_TM'];
+		$data['total_data_belum_rab_TM'] = $temp['total_data_belum_rab_TM'];
+		$data['total_data_belum_pelaksanaan_TM'] = $temp['total_data_belum_pelaksanaan_TM'];
+		$data['total_data_belum_nyala_TM'] = $temp['total_data_belum_nyala_TM'];
+		//KOLEKTIF
+		$data['total_data_belum_survey_KOLEKTIF'] = $temp['total_data_belum_survey_KOLEKTIF'];
+		$data['total_data_belum_bayar_KOLEKTIF'] = $temp['total_data_belum_bayar_KOLEKTIF'];
+		$data['total_data_belum_rab_KOLEKTIF'] = $temp['total_data_belum_rab_KOLEKTIF'];
+		$data['total_data_belum_pelaksanaan_KOLEKTIF'] = $temp['total_data_belum_pelaksanaan_KOLEKTIF'];
+		$data['total_data_belum_nyala_KOLEKTIF'] = $temp['total_data_belum_nyala_KOLEKTIF'];
+
 		
 		$this->template->display('v_home',$data);
+	}
+
+	//Calculate Section kategori
+	private function calculate_category(){
+		$this->load->model('m_pelanggantr');
+		$this->load->model('m_pelanggantm');
+		$this->load->model('m_kolektif');
+            //OLAH DATA TR
+		$query=$this->m_pelanggantr->get_total_data_GMBR_TR()->row();
+		$total_gmbr_TR = $query->TOTAL_SURVEY;
+		$query=$this->m_pelanggantr->get_total_data_BAYAR_TR()->row();
+		$total_BAYAR_TR = $query->TOTAL_BAYAR;
+		$query=$this->m_pelanggantr->get_total_data_RAB_TR()->row();
+		$total_RAB_TR = $query->TOTAL_RAB;
+		$query=$this->m_pelanggantr->get_total_data_PELAKSANAAN_TR()->row();
+		$total_PELAKSANAAN_TR = $query->TOTAL_PELAKSANAAN;
+		$query=$this->m_pelanggantr->get_total_data_NYALA_TR()->row();
+		$total_NYALA_TR = $query->TOTAL_NYALA;
+		$data['total_data_belum_survey_TR'] = $total_gmbr_TR;
+		$data['total_data_belum_bayar_TR'] = $total_BAYAR_TR;
+		$data['total_data_belum_rab_TR'] = $total_RAB_TR;
+		$data['total_data_belum_pelaksanaan_TR'] = $total_PELAKSANAAN_TR;
+		$data['total_data_belum_nyala_TR'] = $total_NYALA_TR;
+            //END OLAH DATA TR
+            //OLAH DATA TM
+		$query=$this->m_pelanggantm->get_total_data_GMBR_TM()->row();
+		$total_gmbr_TM = $query->TOTAL_SURVEY;
+		$query=$this->m_pelanggantm->get_total_data_BAYAR_TM()->row();
+		$total_BAYAR_TM = $query->TOTAL_BAYAR;
+		$query=$this->m_pelanggantm->get_total_data_RAB_TM()->row();
+		$total_RAB_TM = $query->TOTAL_RAB;
+		$query=$this->m_pelanggantm->get_total_data_PELAKSANAAN_TM()->row();
+		$total_PELAKSANAAN_TM = $query->TOTAL_PELAKSANAAN;
+		$query=$this->m_pelanggantm->get_total_data_NYALA_TM()->row();
+		$total_NYALA_TM = $query->TOTAL_NYALA;
+		$data['total_data_belum_survey_TM'] = $total_gmbr_TM;
+		$data['total_data_belum_bayar_TM'] = $total_BAYAR_TM;
+		$data['total_data_belum_rab_TM'] = $total_RAB_TM;
+		$data['total_data_belum_pelaksanaan_TM'] = $total_PELAKSANAAN_TM;
+		$data['total_data_belum_nyala_TM'] = $total_NYALA_TM;
+            //END OLAH DATA TM
+            //OLAH DATA KOLEKTIF
+		$query=$this->m_kolektif->get_total_data_GMBR_KOLEKTIF()->row();
+		$total_gmbr_KOLEKTIF = $query->TOTAL_SURVEY;
+		$query=$this->m_kolektif->get_total_data_BAYAR_KOLEKTIF()->row();
+		$total_BAYAR_KOLEKTIF = $query->TOTAL_BAYAR;
+		$query=$this->m_kolektif->get_total_data_RAB_KOLEKTIF()->row();
+		$total_RAB_KOLEKTIF = $query->TOTAL_RAB;
+		$query=$this->m_kolektif->get_total_data_PELAKSANAAN_KOLEKTIF()->row();
+		$total_PELAKSANAAN_KOLEKTIF = $query->TOTAL_PELAKSANAAN;
+		$query=$this->m_kolektif->get_total_data_NYALA_KOLEKTIF()->row();
+		$total_NYALA_KOLEKTIF = $query->TOTAL_NYALA;
+		$data['total_data_belum_survey_KOLEKTIF'] = $total_gmbr_KOLEKTIF;
+		$data['total_data_belum_bayar_KOLEKTIF'] = $total_BAYAR_KOLEKTIF;
+		$data['total_data_belum_rab_KOLEKTIF'] = $total_RAB_KOLEKTIF;
+		$data['total_data_belum_pelaksanaan_KOLEKTIF'] = $total_PELAKSANAAN_KOLEKTIF;
+		$data['total_data_belum_nyala_KOLEKTIF'] = $total_NYALA_KOLEKTIF;
+            //END OLAH DATA KOLEKTIF
+		return $data;
 	}
 
 //SHOW SECTION
@@ -45,11 +125,9 @@ class c_admin extends CI_Controller
 		$this->template->display('v_profile',$data);
 	}
 
-	public function show_all_admin(){
+		public function show_all_admin(){
 		$this->load->model('m_user');
-		$data['hasil']=$this->m_user->userfromdb();
-		$data['hasil_unapprove']=$this->m_user->userfromdb_unapprove();
-		$data['title']="Profile";
+		$data['title']="Halaman Profile";
 		$data['side1']="";
 		$data['side2']="";
 		$data['side3']="";
@@ -57,8 +135,11 @@ class c_admin extends CI_Controller
 		$data['side5']="";
 		$data['side6']="";
 		$data['side7']="";
+		$data['hasil']=$this->m_user->userfromdb();
+		$data['hasil_unapprove']=$this->m_user->userfromdb_unapprove();
 		$this->template->display('user/index',$data);
 	}
+
 
 	public function show_regis_admin(){
 		$this->load->model('m_captcha');
@@ -97,31 +178,31 @@ class c_admin extends CI_Controller
 
 	function user_approve($id){
 		$email=$this->cek_email_approve($id);
-		$this->load->model('m_user');
-		$this->m_user->approve($id);
 		$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 		<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-		<strong>Data!</strong> Berhasil di <b>Setujui</b>
+		<strong>Data!</strong> BERHASIL DI <b>SETUJUI</b>
 		</div>";
+		$this->load->model('m_user');
+		$this->m_user->approve($id);
 		redirect(site_url('c_email/send_email_approval/'.rawurlencode($email).'/Y'));
 	}
 
 	function user_unapprove($id){
-		$email=$this->cek_email_approve($id);
 		$this->load->model('m_user');
+		$email=$this->cek_email_approve($id);
 		$hasil=$this->m_user->unapprove($id);
 		if($hasil==1)
 		{
 			$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 			<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-			<strong>Data!</strong> Berhasil Tidak di <b>Setujui</b>
+			<strong>Data!</strong> Berhasil Tidak di <b>SETUJUI</b>
 			</div>";
 		}
 		else
 		{
 			$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
 			<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-			<strong>Maaf!</strong> Data Gagal Tidak di <b>Setujui</b>
+			<strong>Maaf!</strong> Data GAGAL Tidak di <b>SETUJUI</b>
 			</div>";
 		}
 		redirect(site_url('c_email/send_email_approval/'.rawurlencode($email).'/N'));
