@@ -15,7 +15,7 @@
 			</ul>
 		</div>
 
-		<div class="portlet box green"><!--start box-->
+		<div class="portlet box green"><!--start box ini menyiksa sekali wkwk-->
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-align-justify"></i>Data User <small>(Belum Aktif)</small></div>
 					<div class="tools">
