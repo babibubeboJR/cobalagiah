@@ -20,9 +20,6 @@ class Pelanggan_TR extends CI_Controller
 		$data['side2']="";
 		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="";
-		$data['side6']="";
-
 
 		$this->template->display('pelanggan_tr/index',$data);
 	}
@@ -74,8 +71,6 @@ class Pelanggan_TR extends CI_Controller
 		$data['side2']="";
 		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_peltr',$data);
 	}
@@ -92,8 +87,6 @@ class Pelanggan_TR extends CI_Controller
 		$data['side2']="";
 		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_peltr',$data);
 	}
@@ -110,8 +103,6 @@ class Pelanggan_TR extends CI_Controller
 		$data['side2']="";
 		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_peltr',$data);
 	}
@@ -128,9 +119,6 @@ class Pelanggan_TR extends CI_Controller
 		$data['side2']="";
 		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="";
-		$data['side6']="";
-
 
 		$this->template->display('dashboard_menu/v_peltr',$data);
 	}
@@ -147,8 +135,6 @@ class Pelanggan_TR extends CI_Controller
 		$data['side2']="";
 		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_peltr',$data);
 	}
@@ -208,7 +194,18 @@ class Pelanggan_TR extends CI_Controller
 			}
 		}
 
-		
+		public function HPL($id){
+			$this->load->model('m_pelanggantr');
+			$data['hasil']=$this->m_pelanggantr->getRayon($id)->result();
+			$data['title']="HPL";
+			$data['sub_title']=$this->cek_nama_rayon($id);
+			$data['ryn_code']=$id; 
+			$data['side1']="";
+			$data['side2']="";
+			$data['side3']="active";
+			$data['side4']="";
+			$this->template->display('hpl/hpl_tr',$data);
+		}
 
 		function searching()
 		{
@@ -225,8 +222,6 @@ class Pelanggan_TR extends CI_Controller
 				$data['side2']="";
 				$data['side3']="active";
 				$data['side4']="";
-				$data['side5']="";
-				$data['side6']="";
 
 				$this->template->display('pelanggan_tr/index',$data);
 			}
@@ -275,8 +270,6 @@ class Pelanggan_TR extends CI_Controller
 			$data['side2']="";
 			$data['side3']="active";
 			$data['side4']="";
-			$data['side5']="";
-			$data['side6']="";
 			$status = array();
 			for ($i=0; $i < 56; $i++) { 
 				$status[$i] = "disabled";
@@ -399,15 +392,14 @@ class Pelanggan_TR extends CI_Controller
 
 			//SYARAT RAB
 			if ($status->NO_NOTADINAS == "") {
-				if ($data['p2'] != "" || $data['q2'] != "" || $data['u2'] != "") { 
+				if ($data['p2'] != "" || $data['q2'] != "" || $data['u2'] != "") {
 					if ($data['u2'] == "") {
 						$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
 						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 						Mohon input data No. Nota Dinas dan data tgl kirim NODIN ke KON atau data tgl kirim NODIN ke pengadaan bersamaan </b>
 						</div>";
 						redirect('pelanggan_tr/editdata/'.$data['a'].'');
-					}
-					else{
+					}else{
 						if (($data['p2'] == "" && $data['q2'] == "")) {
 							$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
 							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
@@ -424,8 +416,7 @@ class Pelanggan_TR extends CI_Controller
 						}
 
 					}
-				}
-				else{
+				}else{
 					$hasil=$this->m_pelanggantr->updatetrtodb($data);
 					$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
