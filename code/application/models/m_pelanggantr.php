@@ -6,6 +6,40 @@
 		  parent::__construct();
 		 }
 
+
+		 function get_total_data_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total FROM V_PELTR");
+			return $hasil;
+		}
+
+
+		function get_total_data_GMBR_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_survey FROM v_peltr WHERE (gmbr is null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_BAYAR_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_bayar FROM v_peltr WHERE (tgl_bayar is null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_RAB_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_rab FROM v_peltr WHERE (no_notadinas is null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+
+		function get_total_data_PELAKSANAAN_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_pelaksanaan FROM v_peltr WHERE (tgl_notdinkevendor is null and no_notadinas is not null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_NYALA_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_nyala FROM v_peltr WHERE (tgl_nyala is null and tgl_notdinkevendor is not null and no_notadinas is not null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+
 		function showppareafromdb()
 		{
 			$hasil=$this->db->query("SELECT * FROM V_PELTR ORDER BY NO ASC")->result();
