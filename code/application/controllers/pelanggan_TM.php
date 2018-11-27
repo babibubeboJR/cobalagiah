@@ -191,10 +191,10 @@ class Pelanggan_TM extends CI_Controller
 			$data['code']=$code;
 			$data['side1']="";
 			$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+			$data['side3']="";
+			$data['side4']="active";
+			$data['side5']="";
+			$data['side6']="";
 
 			$this->template->display('dashboard_menu/v_peltm',$data);
 		}
@@ -222,10 +222,10 @@ class Pelanggan_TM extends CI_Controller
 			$data['title']="Pelanggan TM";
 			$data['side1']="";
 			$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+			$data['side3']="";
+			$data['side4']="active";
+			$data['side5']="";
+			$data['side6']="";
 
 			$this->template->display('pelanggan_tm/index',$data);
 		}
@@ -273,7 +273,7 @@ class Pelanggan_TM extends CI_Controller
 		$data['title']="Pelanggan TM";
 		$data['side1']="";
 		$data['side2']="";
-				$data['side3']="";
+		$data['side3']="";
 		$data['side4']="active";
 		$data['side5']="";
 		$data['side6']="";
@@ -478,7 +478,6 @@ class Pelanggan_TM extends CI_Controller
 			redirect('pelanggan_tm/editdata/'.$data['a'].'');
 		}
 	}
-
 	
 	function saveaddlokasi()
 	{

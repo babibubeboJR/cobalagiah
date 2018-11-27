@@ -51,6 +51,51 @@
 				<span class="selected"></span>
 			</a>
 		</li>
+		
+		<li class="" id="notifbar">
+			<a class="notification" id="notification-toggler">
+				<i class="fa fa-bell"></i>
+				<span class="title">Status Pelanggan</span>
+				<span class="selected"></span>
+			</a>
+		</li>
+		<div class="collapse multi-collapse" id="notif">
+			<div class="list-group scrollnotif" style="width: 100%;margin:0" id="notif_isi"></div>
+			<div align="center">
+				<span class="btn btn-primary btn-sm" id="load3"><img width="16px" src="<?php echo base_url(); ?>/assets/img/ajax-loading.gif"/>&nbsp;</span>
+			</div>
+		</div>
+		
+		<li class="last" id='messagebar'>
+			<a class="chat" id="chat-toggler">
+				<i class="fa fa-comment"></i>
+				<!--<span class="badge badge-danger" id="jmlpesan"></span>-->
+				<span class="title">Obrolan</span>
+				<span class="selected"></span>
+			</a>
+		</li>
+		<div class="collapse multi-collapse" id="chats">
+			<div class="chat-form" style="margin:0">
+				<div class="input-cont">
+					<input type="text" class="form-control" name="product[meta_title]" maxlength="350" autocomplete="off" id="pesan" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('btn').click()" placeholder="max 350 karakter">
+				</div>
+				<div class="btn-cont">
+					<span class="arrow">
+					</span>
+					<button class="btn blue icn-only" id="btn" onclick="insertData()">
+						<span id="loader"><img width="16px" src="<?php echo base_url(); ?>/assets/img/ajax-loading.gif" />&nbsp;</span>
+						<i class="fa fa-send icon-white"></i>
+					</button>
+				</div>
+			</div>
+			<div id="scrolchat" align="center">
+				<ul class="chats" id="isi">
+				</ul>
+				<span class="btn btn-primary btn-sm" id="load2"><img width="16px" src="<?php echo base_url(); ?>/assets/img/ajax-loading.gif"/>&nbsp;</span>
+			</div>
+
+		</div>
+
 	</ul>
 	<!-- END SIDEBAR MENU -->
 </div>
