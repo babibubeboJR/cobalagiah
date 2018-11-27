@@ -178,7 +178,6 @@
 				<!-- end of group -->
 			</div>
 		</div>
-
 		<!-- line3 -->
 		<div class="col-xs-12">
 			<div class="clearfix margin-top-10">
@@ -187,7 +186,7 @@
 			</div>
 			<br>
 			<!-- BEGIN PORTLET-->
-			<!-- <div class="portlet paddingless" id="grafik">
+			<div class="portlet paddingless" id="grafik">
 				<div class="portlet-title line">
 					<div class="caption">
 						<i class="fa fa-bar-chart"></i>Tampilan Grafik
@@ -202,7 +201,7 @@
 				<div class="portlet-body" id="HPL_Grafik">
 					<div id="container"></div>
 				</div>
-			</div> -->
+			</div>
 			<!-- END PORTLET-->
 			<!-- BEGIN PORTLET-->
 			<div class="portlet paddingless">
@@ -219,7 +218,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="portlet-body">
+				<div class="portlet-body" style="display: none">
 					<!--BEGIN TABS-->
 					<div class="tabbable tabbable-custom">
 						<ul class="nav nav-tabs">
@@ -255,3 +254,209 @@
 		</div>
 	</div>
 </div>
+<!--start of js diagram-->
+<script src="<?php echo base_url()?>assets/diagram_js/highcharts.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/diagram_js/highcharts-more.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/diagram_js/exporting.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$("#reload").on('click',function(){
+		show_dgram();
+	});
+	$(document).ready(function(){
+		show_dgram();
+	});
+	function show_dgram(){
+		downloadDataExcel = function () {
+			location.href = '<?php echo base_url()?>c_HPL/export_to_excel';
+		};
+		var buttons = Highcharts.getOptions().exporting.buttons.contextButton.menuItems;
+		buttons.push({
+			text: "Download Data File to Excel",
+			onclick: downloadDataExcel
+		});
+		var categoryLinks = {
+			'LAWANG'		: '<?php base_url()?>HPL/TR/51301',
+			'BULULAWANG'	: '<?php base_url()?>HPL/TR/51302',
+			'BATU'			: '<?php base_url()?>HPL/TR/51303',
+			'SINGOSARI'		: '<?php base_url()?>HPL/TR/51304',
+			'KEPANJEN'		: '<?php base_url()?>HPL/TR/51305',
+			'TUMPANG'		: '<?php base_url()?>HPL/TR/51306',
+			'GONDANGLEGI'	: '<?php base_url()?>HPL/TR/51307',
+			'DAMPIT'		: '<?php base_url()?>HPL/TR/51308',
+			'NGANTANG'		: '<?php base_url()?>HPL/TR/51309',
+			'SUMBER PUCUNG'	: '<?php base_url()?>HPL/TR/51310',
+			'DINOYO'		: '<?php base_url()?>HPL/TR/51311',
+			'BLIMBING'		: '<?php base_url()?>HPL/TR/51312',
+			'MALANG KOTA'	: '<?php base_url()?>HPL/TR/51313',
+			'KEBON AGUNG'	: '<?php base_url()?>HPL/TR/51314'
+		};
+		var chart = Highcharts.chart('container', {
+			chart: {
+				type: 'column'
+			},
+
+			title: {
+				text: 'Grafik HPL'
+			},
+
+			subtitle: {
+				text: ''
+			},
+
+			legend: {
+				align: 'right',
+				verticalAlign: 'middle',
+				layout: 'vertical'
+			},
+
+			xAxis: {
+				categories: ['LAWANG', 'BULULAWANG', 'BATU', 'SINGOSARI', 'KEPANJEN', 'TUMPANG', 'GONDANGLEGI', 'DAMPIT', 'NGANTANG', 'SUMBER PUCUNG', 'DINOYO', 'BLIMBING', 'MALANG KOTA', 'KEBON AGUNG'],
+				labels: {
+					x: 10,
+					formatter: function () {
+						return '<a href="' + categoryLinks[this.value] + '">' + this.value + '</a>';
+					}
+				},
+				title: {
+					enabled: true,
+					text: 'RAYON',
+					style: {
+						fontWeight: 'normal'
+					}
+				}
+			},
+			exporting: {
+				buttons: {
+					contextButton: {
+						menuItems: buttons
+					}
+				}
+			},
+			yAxis: {
+				allowDecimals: false,
+				title: {
+					text: 'HARI'
+				}
+			},
+			series: [{
+				name: 'TR',
+				color: '#D91E18',
+				data: <?php echo $HPL_TR; ?>,
+				URLs: [
+				'<?php base_url()?>HPL/TR/51301', 
+				'<?php base_url()?>HPL/TR/51302', 
+				'<?php base_url()?>HPL/TR/51303', 
+				'<?php base_url()?>HPL/TR/51304', 
+				'<?php base_url()?>HPL/TR/51305', 
+				'<?php base_url()?>HPL/TR/51306', 
+				'<?php base_url()?>HPL/TR/51307', 
+				'<?php base_url()?>HPL/TR/51308', 
+				'<?php base_url()?>HPL/TR/51309', 
+				'<?php base_url()?>HPL/TR/51310', 
+				'<?php base_url()?>HPL/TR/51311', 
+				'<?php base_url()?>HPL/TR/51312', 
+				'<?php base_url()?>HPL/TR/51313', 
+				'<?php base_url()?>HPL/TR/51314', 
+				],
+				point: {
+					events: {
+						click: function() {
+                            var someURL = this.series.userOptions.URLs[this.x]; // onclick get the x index and use it to find the URL
+                            if (someURL)
+                            	location.href = someURL;
+                        }
+                    }
+                }
+            }, {
+            	name: 'KOLEKTIF',
+            	color: '#4C87B9',
+            	data: <?php echo $HPL_KOLEKTIF; ?>,
+            	URLs: [
+            	'<?php base_url()?>HPL/KOL/51301', 
+            	'<?php base_url()?>HPL/KOL/51302', 
+            	'<?php base_url()?>HPL/KOL/51303', 
+            	'<?php base_url()?>HPL/KOL/51304', 
+            	'<?php base_url()?>HPL/KOL/51305', 
+            	'<?php base_url()?>HPL/KOL/51306', 
+            	'<?php base_url()?>HPL/KOL/51307', 
+            	'<?php base_url()?>HPL/KOL/51308', 
+            	'<?php base_url()?>HPL/KOL/51309', 
+            	'<?php base_url()?>HPL/KOL/51310', 
+            	'<?php base_url()?>HPL/KOL/51311', 
+            	'<?php base_url()?>HPL/KOL/51312', 
+            	'<?php base_url()?>HPL/KOL/51313', 
+            	'<?php base_url()?>HPL/KOL/51314', 
+            	],
+            	point: {
+            		events: {
+            			click: function() {
+                            var someURL = this.series.userOptions.URLs[this.x]; // onclick get the x index and use it to find the URL
+                            if (someURL)
+                            	location.href = someURL;
+                        }
+                    }
+                }
+            }, {
+            	name: 'TM',
+            	color: '#26C281',
+            	data: <?php echo $HPL_TM; ?>,
+            	URLs: [
+            	'<?php base_url()?>HPL/TM/51301', 
+            	'<?php base_url()?>HPL/TM/51302', 
+            	'<?php base_url()?>HPL/TM/51303', 
+            	'<?php base_url()?>HPL/TM/51304', 
+            	'<?php base_url()?>HPL/TM/51305', 
+            	'<?php base_url()?>HPL/TM/51306', 
+            	'<?php base_url()?>HPL/TM/51307', 
+            	'<?php base_url()?>HPL/TM/51308', 
+            	'<?php base_url()?>HPL/TM/51309', 
+            	'<?php base_url()?>HPL/TM/51310', 
+            	'<?php base_url()?>HPL/TM/51311', 
+            	'<?php base_url()?>HPL/TM/51312', 
+            	'<?php base_url()?>HPL/TM/51313', 
+            	'<?php base_url()?>HPL/TM/51314', 
+            	],
+            	point: {
+            		events: {
+            			click: function() {
+                            var someURL = this.series.userOptions.URLs[this.x]; // onclick get the x index and use it to find the URL
+                            if (someURL)
+                            	location.href = someURL;
+                        }
+                    }
+                }
+            }],
+            responsive: {
+            	rules: [{
+            		condition: {
+            			maxWidth: 500
+            		},
+            		chartOptions: {
+            			legend: {
+            				align: 'center',
+            				verticalAlign: 'bottom',
+            				layout: 'horizontal'
+            			},
+            			yAxis: {
+            				labels: {
+            					align: 'left',
+            					x: 0,
+            					y: -5
+            				},
+            				title: {
+            					text: null
+            				}
+            			},
+            			subtitle: {
+            				text: null
+            			},
+            			credits: {
+            				enabled: false
+            			}
+            		}
+            	}]
+            }
+        });
+}
+</script>
+<!--end of js diagram-->
