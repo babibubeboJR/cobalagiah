@@ -165,6 +165,32 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="<?php echo base_url()?>assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>assets/admin/pages/scripts/form-editable.js"></script>
 <script src="<?php echo base_url()?>assets/admin/pages/scripts/components-pickers.js"></script>
+<!--sidebar dasbord 5 menu-->
+<script type="text/javascript">
+	function openBelumSurvey() {
+		$('.dasbord-collapse.collapse.in').collapse('hide');
+		$('#collapseExample1').collapse('show');
+	}
+
+	function openBelumBayar() {
+		$('.dasbord-collapse.collapse.in').collapse('hide');
+		$('#collapseExample2').collapse('show');
+	}
+
+	function openBelumRAB() {
+		$('.dasbord-collapse.collapse.in').collapse('hide');
+		$('#collapseExample3').collapse('show');
+	}
+
+	function openBelumPelaksanaan() {
+		$('.dasbord-collapse.collapse.in').collapse('hide');
+		$('#collapseExample4').collapse('show');
+	}
+	function openBelumNyala() {
+		$('.dasbord-collapse.collapse.in').collapse('hide');
+		$('#collapseExample5').collapse('show');
+	}
+</script>
 <!--end of sidebar js-->
 <script>
 	jQuery(document).ready(function() {       
