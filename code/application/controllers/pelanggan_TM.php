@@ -21,10 +21,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['sub_title']="Belum Survey";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 
 		$this->template->display('pelanggan_tm/index',$data);
 	}
@@ -74,10 +72,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['code']="1";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 
 		$this->template->display('dashboard_menu/v_peltm',$data);
 	}
@@ -92,10 +88,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['code']="2";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 
 		$this->template->display('dashboard_menu/v_peltm',$data);
 	}
@@ -110,10 +104,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['code']="3";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 
 		$this->template->display('dashboard_menu/v_peltm',$data);
 	}
@@ -128,10 +120,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['code']="4";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 
 		$this->template->display('dashboard_menu/v_peltm',$data);
 	}
@@ -146,10 +136,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['code']="5";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 
 		$this->template->display('dashboard_menu/v_peltm',$data);
 	}
@@ -191,10 +179,8 @@ class Pelanggan_TM extends CI_Controller
 			$data['code']=$code;
 			$data['side1']="";
 			$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+			$data['side3']="active";
+			$data['side4']="";
 
 			$this->template->display('dashboard_menu/v_peltm',$data);
 		}
@@ -208,6 +194,18 @@ class Pelanggan_TM extends CI_Controller
 		}
 	}
 
+	public function HPL($id){
+		$this->load->model('m_pelanggantm');
+		$data['hasil']=$this->m_pelanggantm->getRayon($id)->result();
+		$data['title']="HPL";
+		$data['sub_title']=$this->cek_nama_rayon($id);
+		$data['ryn_code']=$id; 
+		$data['side1']="";
+		$data['side2']="";
+		$data['side3']="active";
+		$data['side4']="";
+		$this->template->display('hpl/hpl_tm',$data);
+	}
 	
 	function searching()
 	{
@@ -222,10 +220,8 @@ class Pelanggan_TM extends CI_Controller
 			$data['title']="Pelanggan TM";
 			$data['side1']="";
 			$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+			$data['side3']="active";
+			$data['side4']="";
 
 			$this->template->display('pelanggan_tm/index',$data);
 		}
@@ -273,10 +269,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['title']="Pelanggan TM";
 		$data['side1']="";
 		$data['side2']="";
-				$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 		$status = array();
 		for ($i=0; $i < 42; $i++) { 
 			$status[$i] = "disabled";
@@ -320,10 +314,8 @@ class Pelanggan_TM extends CI_Controller
 		$data['title']="Pelanggan TM";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
-		$data['side4']="active";
-		$data['side5']="";
-		$data['side6']="";
+		$data['side3']="active";
+		$data['side4']="";
 		
 		$data['upload']=$this->m_pelanggantm->datauploadfromdb($id);
 		$this->template->display('pelanggan_tm/view',$data);
@@ -478,7 +470,6 @@ class Pelanggan_TM extends CI_Controller
 			redirect('pelanggan_tm/editdata/'.$data['a'].'');
 		}
 	}
-
 	
 	function saveaddlokasi()
 	{
@@ -534,100 +525,100 @@ class Pelanggan_TM extends CI_Controller
 	
 	function uploaddata()
 	{
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('no','No Pelanggan','required');
-		$this->form_validation->set_rules('jdu','Jenis Data','required');
-		$nopel=$this->input->post('no');
-		$nama=$this->input->post('nama_pel');
-		$jns=$this->input->post('jdu');
-		if($this->form_validation->run()==true)
-		{	
-			$this->load->model('m_pelanggantm');
-			$status_user = $this->m_pelanggantm->showdataedit($nopel)->row();
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('no','No Pelanggan','required');
+			$this->form_validation->set_rules('jdu','Jenis Data','required');
+			$nopel=$this->input->post('no');
+			$nama=$this->input->post('nama_pel');
+			$jns=$this->input->post('jdu');
+			if($this->form_validation->run()==true)
+			{	
+				$this->load->model('m_pelanggantm');
+				$status_user = $this->m_pelanggantm->showdataedit($nopel)->row();
 
 				//SYARAT BAYAR
-			if ($status_user->GMBR == "" && $jns == "Bukti Bayar") {
-				$_SESSION['log']='<div class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Maaf!</strong> Data gambar survey tidak ditemukan, mohon upload terlebih dahulu
-				</div>';
-			}else{
-				$config['upload_path']   = './assets/data_upload/PelangganTM/'.$nama.'';
-				$config['allowed_types'] = '*';
-					// $config['file_name'] = $jns ." " .$nama;
-				$this->upload->initialize($config);	
-
-				if (!is_dir('assets/data_upload/PelangganTM/'.$nama)) {
-					mkdir('./assets/data_upload/PelangganTM/'.$nama, 0777, true);
-				}
-
-				if(!$this->upload->do_upload('gb')){
-					$gambar="";
+				if ($status_user->GMBR == "" && $jns == "Bukti Bayar") {
 					$_SESSION['log']='<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<strong>Maaf!</strong> Tidak Dapat Menyimpan Data, Cek Pengisian Data ! Data tidak dapat diupload apabila Nama Pelanggan mengandung karakter : <b>\ / * : < > " ? |</b>
+					<strong>Maaf!</strong> Data gambar survey tidak ditemukan, mohon upload terlebih dahulu
 					</div>';
 				}else{
-					$query=$this->m_pelanggantm->cekdata($nopel,$jns);
-					$cek=$query->row();
-					if($cek->COUNT > 0)
-					{
-						$query1=$this->db->query("SELECT data_upload FROM uploadryntm WHERE no_pelanggan='".$nopel."' AND jenis_data='".$jns."'");
-						$file=$query1->row();
-						unlink("./assets/data_upload/PelangganTM/".$nama."/".$file->DATA_UPLOAD."");
-						$gambar=$this->upload->file_name;
-						$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
-						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-						Data Telah Diupdate
-						</div>";
-						$data['no_pelanggan']=$nopel;
-						$data['gb']=$gambar;
-						$data['jdu']=$jns;
-						$this->m_pelanggantm->updatedataupload($data);
-						if ($jns == "Gambar Hasil Survey") {
-							redirect('c_email/send_email_override/' .$nopel .'/Survey/TM');
-						}elseif ($jns == "Bukti Bayar") {
-							redirect('c_email/send_email_override/' .$nopel .'/Bayar/TM');
-						}
+					$config['upload_path']   = './assets/data_upload/PelangganTM/'.$nama.'';
+					$config['allowed_types'] = '*';
+					// $config['file_name'] = $jns ." " .$nama;
+					$this->upload->initialize($config);	
+
+					if (!is_dir('assets/data_upload/PelangganTM/'.$nama)) {
+						mkdir('./assets/data_upload/PelangganTM/'.$nama, 0777, true);
 					}
-					else
-					{
-						$gambar=$this->upload->file_name;
-						$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
-						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-						Data Telah Tersimpan
-						</div>";
-						$data['no_pelanggan']=$nopel;
-						$data['gb']=$gambar;
-						$data['jdu']=$jns;
-						$this->m_pelanggantm->simpandataupload($data);
-						if ($jns == "Gambar Hasil Survey") {
-							redirect('c_email/send_email_override/' .$nopel .'/Survey/TM');
-						}elseif ($jns == "Bukti Bayar") {
-							redirect('c_email/send_email_override/' .$nopel .'/Bayar/TM');
+
+					if(!$this->upload->do_upload('gb')){
+						$gambar="";
+						$_SESSION['log']='<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<strong>Maaf!</strong> Tidak Dapat Menyimpan Data, Cek Pengisian Data ! Data tidak dapat diupload apabila Nama Pelanggan mengandung karakter : <b>\ / * : < > " ? |</b>
+						</div>';
+					}else{
+						$query=$this->m_pelanggantm->cekdata($nopel,$jns);
+						$cek=$query->row();
+						if($cek->COUNT > 0)
+						{
+							$query1=$this->db->query("SELECT data_upload FROM uploadryntm WHERE no_pelanggan='".$nopel."' AND jenis_data='".$jns."'");
+							$file=$query1->row();
+							unlink("./assets/data_upload/PelangganTM/".$nama."/".$file->DATA_UPLOAD."");
+							$gambar=$this->upload->file_name;
+							$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+							Data Telah Diupdate
+							</div>";
+							$data['no_pelanggan']=$nopel;
+							$data['gb']=$gambar;
+							$data['jdu']=$jns;
+							$this->m_pelanggantm->updatedataupload($data);
+							if ($jns == "Gambar Hasil Survey") {
+								redirect('c_email/send_email_override/' .$nopel .'/Survey/TM');
+							}elseif ($jns == "Bukti Bayar") {
+								redirect('c_email/send_email_override/' .$nopel .'/Bayar/TM');
+							}
+						}
+						else
+						{
+							$gambar=$this->upload->file_name;
+							$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+							<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+							Data Telah Tersimpan
+							</div>";
+							$data['no_pelanggan']=$nopel;
+							$data['gb']=$gambar;
+							$data['jdu']=$jns;
+							$this->m_pelanggantm->simpandataupload($data);
+							if ($jns == "Gambar Hasil Survey") {
+								redirect('c_email/send_email_override/' .$nopel .'/Survey/TM');
+							}elseif ($jns == "Bukti Bayar") {
+								redirect('c_email/send_email_override/' .$nopel .'/Bayar/TM');
+							}
 						}
 					}
 				}
 			}
+			else
+			{
+				$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
+				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+				<strong>Maaf!</strong> Anda Belum Memilih Jenis Data!</div>";
+			}
+			$red="pelanggan_TM/editdata/".$nopel."";
+			redirect($red);           
 		}
-		else
-		{
-			$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
-			<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-			<strong>Maaf!</strong> Anda Belum Memilih Jenis Data!</div>";
-		}
-		$red="pelanggan_TM/editdata/".$nopel."";
-		redirect($red);           
-	}
 		//OLAH DATA PELANGGAN TM
-
+		
 		//EXTRA FITUR
-	public function exporttoexcel()
-	{
-		$this->load->model('m_pelanggantm');
-		$data['hasil']=$this->m_pelanggantm->showppareafromdb()->result();
-		$this->load->view('pelanggan_tm/export',$data);
-	}
+		public function exporttoexcel()
+		{
+			$this->load->model('m_pelanggantm');
+			$data['hasil']=$this->m_pelanggantm->showppareafromdb()->result();
+			$this->load->view('pelanggan_tm/export',$data);
+		}
 		//END EXTRA FITUR
 
-}
+	}
