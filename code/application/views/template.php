@@ -436,6 +436,17 @@ License: You must have a valid license purchased only from themeforest(the above
 	});
 	$('#popoverData').popover();
 	$('#popoverOption').popover({ trigger: "hover" });
+	function count_user_not_approve(){
+		$.ajax({
+			type:'POST',
+			url:'<?php echo base_url();?>c_admin/count_user_not_approval',
+			cache: false,
+			success:function(html){
+				$("#count").html("("+html+")");
+				$("#count_notif").html(html);
+			},
+		});
+	}	
 </script>
 
 <script>
