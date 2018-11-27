@@ -323,6 +323,39 @@ class M_pelanggantm extends CI_Model
 			return $hasil;
 		}
 
+		function get_total_data_TM(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total FROM V_PELTM");
+			return $hasil;
+		}
+
+
+
+		function get_total_data_GMBR_TM(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_survey FROM v_peltm WHERE (gmbr is null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_RAB_TM(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_rab FROM v_peltm WHERE (no_notadinas is null and tgl_bayar is not NULL and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_BAYAR_TM(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_bayar FROM v_peltm WHERE (tgl_bayar is null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_PELAKSANAAN_TM(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_pelaksanaan FROM v_peltm WHERE (tgl_nodinkevendor is null and no_notadinas is not null and tgl_bayar is not NULL and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_NYALA_TM(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_nyala FROM v_peltm WHERE (tgl_nyala is null and tgl_nodinkevendor is not null and no_notadinas is not null and tgl_bayar is not NULL and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+
 		
 	}
 	?>
