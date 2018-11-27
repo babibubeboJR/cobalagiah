@@ -14,11 +14,8 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-xs-12">
-			<?php echo $_SESSION['log'];
-			$_SESSION['log']="";
-			?>
-			<div class="portlet box green"><!--start box-->
+
+		<div class="portlet box green"><!--start box-->
 				<div class="portlet-title">
 					<div class="caption"><i class="fa fa-align-justify"></i>Data User <small>(Belum Aktif)</small></div>
 					<div class="tools">
@@ -45,8 +42,8 @@
 								<th colspan="2" align="center">Approval</th>
 							</tr>
 							<tr>
-								<th>Setuju</th>
-								<th>Tidak Setuju</th>
+								<th>setuju</th>
+								<th>tidak setuju</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,12 +80,13 @@
 										</td>
 										<?php
 									}
-									echo "</tr>";
+									echo " </tr>";
 								endforeach;?>
 							</tbody>
 						</table>
 					</div><!-- /.box-body -->
 				</div><!-- /.box -->
+
 
 				<div class="portlet box purple-wisteria"><!--start box-->
 					<div class="portlet-title">

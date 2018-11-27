@@ -7,18 +7,20 @@ class M_user extends CI_Model
 		parent::__construct();
 	}
 
-
+    //for fungsi user approve 
     function approve($id){
         $query = "UPDATE tb_pengolah SET approve='Y' where id='$id'";
         $hasil=$this->db->query($query);
     }
 
+    //for fungsi user unapprove 
     function unapprove($id){
         $query="DELETE FROM tb_pengolah WHERE id = '$id'";
         $hasil=$this->db->query($query);
         return $hasil;
     }
 
+    //for fungsi cek user yang disetujui
     function cek_approval($username){
           $query = "select * from tb_pengolah where username='$username' and approve='Y'";
           $hasil=$this->db->query($query);
@@ -29,6 +31,7 @@ class M_user extends CI_Model
           }
       }
     
+    //for fungsi user yang tidak disetujui
     function count_non_approval_user(){
         $hasil=$this->db->query("SELECT COUNT(*) AS TOTAL_USER_APPROVAL FROM tb_pengolah WHERE approve='N' or approve is null");
         return $hasil;
@@ -51,6 +54,7 @@ class M_user extends CI_Model
     return $hasil;
 }
 
+//for user un approve
 function userfromdb_unapprove(){
     $hasil=$this->db->query("SELECT * FROM tb_pengolah where approve = 'N' or approve is null")->result();
     return $hasil;
