@@ -73,7 +73,7 @@ class Kolektif extends CI_Controller
 		$data['code']="1";
 		$data['side1']="";
 		$data['side2']="";
-$data['side3']="";
+		$data['side3']="";
 		$data['side4']="";
 		$data['side5']="active";
 		$data['side6']="";
@@ -192,9 +192,9 @@ $data['side3']="";
 			$data['side1']="";
 			$data['side2']="";
 			$data['side3']="";
-		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
+			$data['side4']="";
+			$data['side5']="active";
+			$data['side6']="";
 
 			$this->template->display('dashboard_menu/v_pelkol',$data);
 		}
@@ -208,7 +208,7 @@ $data['side3']="";
 		}
 	}
 
-		
+	
 	function searching()
 	{
 			$this->load->library('form_validation'); //load library form_validation
@@ -223,9 +223,9 @@ $data['side3']="";
 				$data['side1']="";
 				$data['side2']="";
 				$data['side3']="";
-		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
+				$data['side4']="";
+				$data['side5']="active";
+				$data['side6']="";
 
 
 				$this->template->display('kolektif/index',$data);
@@ -323,9 +323,9 @@ $data['side3']="";
 			$data['side1']="";
 			$data['side2']="";
 			$data['side3']="";
-		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
+			$data['side4']="";
+			$data['side5']="active";
+			$data['side6']="";
 
 			
 			$data['upload']=$this->m_kolektif->datauploadfromdb($id);
@@ -499,7 +499,6 @@ $data['side3']="";
 				redirect('kolektif/editdata/'.$data['a'].'');
 			}
 		}
-
 		
 		function saveaddlokasi()
 		{
