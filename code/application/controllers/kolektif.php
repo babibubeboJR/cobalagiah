@@ -20,10 +20,8 @@ class Kolektif extends CI_Controller
 		$data['title']="Pelanggan Kolektif";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
+		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
 
 		$this->template->display('kolektif/index',$data);
 	}
@@ -73,11 +71,8 @@ class Kolektif extends CI_Controller
 		$data['code']="1";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
+		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
-
 
 		$this->template->display('dashboard_menu/v_pelkol',$data);
 	}
@@ -92,10 +87,8 @@ class Kolektif extends CI_Controller
 		$data['code']="2";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
+		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_pelkol',$data);
 	}
@@ -110,10 +103,8 @@ class Kolektif extends CI_Controller
 		$data['code']="3";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
+		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_pelkol',$data);
 	}
@@ -128,10 +119,8 @@ class Kolektif extends CI_Controller
 		$data['code']="4";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
+		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_pelkol',$data);
 	}
@@ -146,10 +135,8 @@ class Kolektif extends CI_Controller
 		$data['code']="5";
 		$data['side1']="";
 		$data['side2']="";
-		$data['side3']="";
+		$data['side3']="active";
 		$data['side4']="";
-		$data['side5']="active";
-		$data['side6']="";
 
 		$this->template->display('dashboard_menu/v_pelkol',$data);
 	}
@@ -191,10 +178,8 @@ class Kolektif extends CI_Controller
 			$data['code']=$code;
 			$data['side1']="";
 			$data['side2']="";
-			$data['side3']="";
+			$data['side3']="active";
 			$data['side4']="";
-			$data['side5']="active";
-			$data['side6']="";
 
 			$this->template->display('dashboard_menu/v_pelkol',$data);
 		}
@@ -208,6 +193,18 @@ class Kolektif extends CI_Controller
 		}
 	}
 
+	public function HPL($id){
+		$this->load->model('m_kolektif');
+		$data['hasil']=$this->m_kolektif->getRayon($id)->result();
+		$data['title']="HPL";
+		$data['sub_title']=$this->cek_nama_rayon($id);
+		$data['ryn_code']=$id; 
+		$data['side1']="";
+		$data['side2']="";
+		$data['side3']="active";
+		$data['side4']="";
+		$this->template->display('hpl/hpl_kol',$data);
+	}
 	
 	function searching()
 	{
@@ -222,11 +219,8 @@ class Kolektif extends CI_Controller
 				$data['title']="Pelanggan Kolektif";
 				$data['side1']="";
 				$data['side2']="";
-				$data['side3']="";
+				$data['side3']="active";
 				$data['side4']="";
-				$data['side5']="active";
-				$data['side6']="";
-
 
 				$this->template->display('kolektif/index',$data);
 			}
@@ -274,11 +268,8 @@ class Kolektif extends CI_Controller
 			$data['title']="Pelanggan Kolektif";
 			$data['side1']="";
 			$data['side2']="";
-			$data['side3']="";
+			$data['side3']="active";
 			$data['side4']="";
-			$data['side5']="active";
-			$data['side6']="";
-
 			$status = array();
 			for ($i=0; $i < 54; $i++) { 
 				$status[$i] = "disabled";
@@ -322,11 +313,8 @@ class Kolektif extends CI_Controller
 			$data['title']="Pelanggan Kolektif";
 			$data['side1']="";
 			$data['side2']="";
-			$data['side3']="";
+			$data['side3']="active";
 			$data['side4']="";
-			$data['side5']="active";
-			$data['side6']="";
-
 			
 			$data['upload']=$this->m_kolektif->datauploadfromdb($id);
 			$this->template->display('kolektif/view',$data);
@@ -567,9 +555,7 @@ class Kolektif extends CI_Controller
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<strong>Maaf!</strong> Data gambar survey tidak ditemukan, mohon upload terlebih dahulu
 					</div>';
-				}
-				else // jgmbr tdk kosong atau jng != bukti bayar
-				{
+				}else{
 					$config['upload_path']   = './assets/data_upload/PelangganKOL/'.$nama.'';
 					$config['allowed_types'] = '*';
 					// $config['file_name'] = $jns ." " .$nama;
@@ -629,7 +615,7 @@ class Kolektif extends CI_Controller
 				}
 				
 			}
-			else 
+			else
 			{
 				$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
 				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
