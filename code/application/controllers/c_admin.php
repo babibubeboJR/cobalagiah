@@ -46,7 +46,7 @@ class c_admin extends CI_Controller
 		$this->template->display('v_home',$data);
 	}
 
-	//Calculate Section
+	//Calculate Section kategori
 	private function calculate_category(){
 		$this->load->model('m_pelanggantr');
 		$this->load->model('m_pelanggantm');
@@ -177,19 +177,19 @@ class c_admin extends CI_Controller
 	}
 
 	function user_approve($id){
+		$email=$this->cek_email_approve($id);
 		$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 		<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 		<strong>Data!</strong> BERHASIL DI <b>SETUJUI</b>
 		</div>";
-		$email=$this->cek_email_approve($id);
 		$this->load->model('m_user');
 		$this->m_user->approve($id);
 		redirect(site_url('c_email/send_email_approval/'.rawurlencode($email).'/Y'));
 	}
 
 	function user_unapprove($id){
-		$email=$this->cek_email_approve($id);
 		$this->load->model('m_user');
+		$email=$this->cek_email_approve($id);
 		$hasil=$this->m_user->unapprove($id);
 		if($hasil==1)
 		{
