@@ -125,11 +125,9 @@ class c_admin extends CI_Controller
 		$this->template->display('v_profile',$data);
 	}
 
-	public function show_all_admin(){
+		public function show_all_admin(){
 		$this->load->model('m_user');
-		$data['hasil']=$this->m_user->userfromdb();
-		$data['hasil_unapprove']=$this->m_user->userfromdb_unapprove();
-		$data['title']="Profile";
+		$data['title']="Halaman Profile";
 		$data['side1']="";
 		$data['side2']="";
 		$data['side3']="";
@@ -137,8 +135,11 @@ class c_admin extends CI_Controller
 		$data['side5']="";
 		$data['side6']="";
 		$data['side7']="";
+		$data['hasil']=$this->m_user->userfromdb();
+		$data['hasil_unapprove']=$this->m_user->userfromdb_unapprove();
 		$this->template->display('user/index',$data);
 	}
+
 
 	public function show_regis_admin(){
 		$this->load->model('m_captcha');
@@ -176,13 +177,13 @@ class c_admin extends CI_Controller
 	}
 
 	function user_approve($id){
+		$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
+		<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+		<strong>Data!</strong> BERHASIL DI <b>SETUJUI</b>
+		</div>";
 		$email=$this->cek_email_approve($id);
 		$this->load->model('m_user');
 		$this->m_user->approve($id);
-		$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
-		<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-		<strong>Data!</strong> Berhasil di <b>Setujui</b>
-		</div>";
 		redirect(site_url('c_email/send_email_approval/'.rawurlencode($email).'/Y'));
 	}
 
@@ -194,14 +195,14 @@ class c_admin extends CI_Controller
 		{
 			$_SESSION['log']="<div class='alert alert-success alert-dismissable'>
 			<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-			<strong>Data!</strong> Berhasil Tidak di <b>Setujui</b>
+			<strong>Data!</strong> Berhasil Tidak di <b>SETUJUI</b>
 			</div>";
 		}
 		else
 		{
 			$_SESSION['log']="<div class='alert alert-danger alert-dismissable'>
 			<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-			<strong>Maaf!</strong> Data Gagal Tidak di <b>Setujui</b>
+			<strong>Maaf!</strong> Data GAGAL Tidak di <b>SETUJUI</b>
 			</div>";
 		}
 		redirect(site_url('c_email/send_email_approval/'.rawurlencode($email).'/N'));
