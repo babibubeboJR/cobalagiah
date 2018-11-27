@@ -84,6 +84,66 @@ License: You must have a valid license purchased only from themeforest(the above
 		vertical-align: middle;
 	}
 </style>
+<style>
+#scrolchat {
+	max-height:400px;
+	overflow-y:auto;
+}
+
+#scrolchat > ul > li {
+	padding:3px;
+	clear:both;
+	padding:4px;
+	margin:10px 0px 5px 0px;
+	overflow:auto;
+}
+
+.scrollnotif {
+	max-height:400px;
+	overflow-y:auto;
+}
+
+.scrolnotif > ul > li {
+	padding:3px;
+	clear:both;
+	padding:4px;
+	margin:10px 0px 5px 0px;
+	overflow:auto;
+}
+
+#chat-box {
+	position: fixed;
+	bottom : 0;
+	margin-left: 10px; 
+}
+.collapsed {
+	display: none; /* hide it for small displays */
+}
+
+/*** css notification ***/
+.line-header{
+	display:inline-block;
+}
+.lg-item{
+	color:#FAFAFA;
+	border:none;
+	margin:3px;
+}
+.line-ket{
+	display:inline-block;
+	font-size:10px;
+	font-weight: bold
+}
+.line-hr{
+	margin:3px 0 3px 0; 
+	color:solid white;
+}
+.line-text{
+	display:block;
+	font-size:10px;
+}
+/*** end of css notification ***/
+</style>
 <link rel="shortcut icon" href="<?php echo base_url()?>assets/img/favicon.ico"/>
 </head>
 <!-- END HEAD -->
@@ -191,7 +251,174 @@ License: You must have a valid license purchased only from themeforest(the above
 		$('#collapseExample5').collapse('show');
 	}
 </script>
+<!--end of sidebar dasbord 5 menu-->
+<!--sidebar js-->
+<script type="text/javascript">
+	var state= 0;
+	$('.sidebar-toggler').on( 'click', function () {
+		$('#chats').removeClass('in');
+		$('#notif').removeClass('in');
+	});
+	$('#chat-toggler').on('click',function () {
+		if ($("#sidebar-menu").hasClass("page-sidebar-menu-closed")) {
+			$("#sidebar-toggler").click();
+		}
+		if ($("#messagebar").hasClass("active")) {
+			$("#messagebar").removeClass("active");
+		}else{
+			$("#messagebar").addClass("active");
+		}
+		$('#chats').collapse('toggle');
+		var objDiv = document.getElementById("scrolchat");
+		objDiv.scrollTop = objDiv.scrollHeight;
+	});
+	$('#notification-toggler').on('click',function () {
+		if ($("#sidebar-menu").hasClass("page-sidebar-menu-closed")) {
+			$("#sidebar-toggler").click();
+		}
+		if ($("#notifbar").hasClass("active")) {
+			$("#notifbar").removeClass("active");
+		}else{
+			$("#notifbar").addClass("active");
+		}
+		$('#notif').collapse('toggle');
+	});
+	// $('#detail-toggler').on('click',function () {
+	// 	if ($("#sidebar-menu").hasClass("page-sidebar-menu-closed")) {
+	// 		$("#sidebar-toggler").click();
+	// 	}
+	// 	if ($("#notifbar").hasClass("active")) {
+	// 		$("#notifbar").removeClass("active");
+	// 	}else{
+	// 		$("#notifbar").addClass("active");
+	// 	}
+	// 	$('#notif').collapse('toggle');
+	// });
+	function insertData(){
+		if ($("#pesan").val()!=''){
+			var datainput = {'pesan':$("#pesan").val()};
+			$.ajax({
+				type:'POST',
+				data:datainput,
+				url:'<?php echo base_url();?>c_chat/insert_pesan',
+				beforeSend:function(){
+					$("#loader").show();
+					$("#btn").addClass("disabled");
+				},
+				success:function(html){
+					$("#loader").hide();
+					$("#btn").removeClass("disabled");
+				},
+				error:function(){
+					$("#loader").hide();
+					$("#btn").removeClass("disabled");
+				}
+			});
+		}
+		if (state === 0) {
+			tampilPesan();	
+		}else{
+			state++;
+			load_more(state);
+		}	
+		document.getElementById("pesan").value="";
+		var objDiv = document.getElementById("scrolchat").delay(300);
+		// objDiv.scrollTop = objDiv.scrollHeight;
+	}
+
+	function tampilPesan(){
+		$.ajax({
+			type:'POST',
+			url:'<?php echo base_url();?>c_chat/tampil_pesan',
+			cache: false,
+			success:function(html){
+				$("#isi").html(html);
+			},
+		});
+	}
+
+	function load_more(last_data){
+		state = last_data;
+		$.ajax({
+			type:'POST',
+			url:'<?php echo base_url();?>c_chat/load_more/'+last_data,
+			cache: false,
+			beforeSend:function(){
+				$("#load2").show();
+				// $("#btn").addClass("disabled");
+				},
+			success:function(html){
+				$("#load2").hide();
+				$("#isi").html(html);
+			},
+		});
+	}
+
+	function showNotif(){
+		$.ajax({
+			type:'POST',
+			url:'<?php echo base_url();?>c_notifikasi/show_notif',
+			cache: false,
+			success:function(html){
+				$("#notif_isi").html(html);
+			},
+		});
+	}
+
+	function load_notif_more(last_data){
+		$.ajax({
+			type:'POST',
+			url:'<?php echo base_url();?>c_notifikasi/load_notif_more/'+last_data,
+			cache: false,
+			beforeSend:function(){
+				$("#load3").show();
+				// $("#btn").addClass("disabled");
+				},
+			success:function(html){
+				$("#load3").hide();
+				$("#notif_isi").html(html);
+			},
+		});
+	}
+	function count_user_not_approve(){
+		$.ajax({
+			type:'POST',
+			url:'<?php echo base_url();?>c_admin/count_user_not_approval',
+			cache: false,
+			success:function(html){
+				$("#count").html("("+html+")");
+				$("#count_notif").html(html);
+			},
+		});
+	}
+	
+	$(document).ready(function(){
+		$("#loader").hide();
+		count_user_not_approve();
+		showNotif();
+		tampilPesan();
+		$("#load2").hide();
+		$("#load3").hide();
+
+	});
+</script>
 <!--end of sidebar js-->
+<script type="text/javascript">
+	$(document).ready(function(){
+		function notif(){
+			$.ajax({
+				type:'POST',
+				url:'<?php echo base_url();?>user/notif',
+				success:function(html){
+					$("#jmlpesan").html(html);
+				}
+			});
+		}
+		setInterval(function(){
+			notif();
+		},1000);
+	});
+</script>
 <script>
 	jQuery(document).ready(function() {       
    	Metronic.init(); // init metronic core components
