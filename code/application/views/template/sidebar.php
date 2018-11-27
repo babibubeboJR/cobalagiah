@@ -51,6 +51,21 @@
 				<span class="selected"></span>
 			</a>
 		</li>
+		
+		<li class="" id="notifbar">
+			<a class="notification" id="notification-toggler">
+				<i class="fa fa-bell"></i>
+				<span class="title">Status Pelanggan</span>
+				<span class="selected"></span>
+			</a>
+		</li>
+		<div class="collapse multi-collapse" id="notif">
+			<div class="list-group scrollnotif" style="width: 100%;margin:0" id="notif_isi"></div>
+			<div align="center">
+				<span class="btn btn-primary btn-sm" id="load3"><img width="16px" src="<?php echo base_url(); ?>/assets/img/ajax-loading.gif"/>&nbsp;</span>
+			</div>
+		</div>
+
 	</ul>
 	<!-- END SIDEBAR MENU -->
 </div>
