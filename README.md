@@ -1,1 +1,1 @@
-# cobalagiah v1.1
+# SIMPEL AREMA v 1.0
