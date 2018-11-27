@@ -26,6 +26,15 @@ class c_chat extends CI_Controller
 		$this->template->display('v_chat',$data);
 	}
 
+	public function insert_pesan(){
+		$data['pesan'] = $_POST['pesan'];
+		$data = $this->m_chat->insertPesan($data);
+		if($data >= 1){
+			echo "<span style='color:green;'>pesan terkirim...</span>";
+			redirect('chat/tampil_pesan');
+		}
+	}
+
 	function tampil_pesan()
 	{
 		$hasil = $this->m_chat->getPesan();
@@ -34,7 +43,6 @@ class c_chat extends CI_Controller
 		$count = $query->row();
 		if ($count->COUNT < 1){
 			echo '<li class="in">';
-				// echo '<img class="avatar" width="20px" alt="" src="'.base_url().'assets/img/pln.PNG"/>';
 			echo	'<div class="message">';
 			echo		'<span class="arrow"></span>';
 			echo		'<a href="#" class="name">SYSTEM </a>';
@@ -52,14 +60,7 @@ class c_chat extends CI_Controller
 					$status="in";
 				}
 				echo '<li class="'.$status.'">';
-				if($key->FOTO=="")
-				{
-					// echo '<img class="avatar" width="20px" alt="" src="'.base_url().'assets/img/dp/no-img.jpg"/>';
-				}
-				else
-				{
-					// echo '<img class="avatar" width="20px" alt="" src="'.base_url().'assets/img/dp/'.$key->FOTO.'"/>';
-				}
+				
 				echo	'<div style="margin :0px 15px 0px 15px;" class="message">';
 				echo		'<span class="arrow"></span>';
 				echo		'<a href="#" style="font-size: 11px; font-weight : bold;" class="name">'.$key->NAMA.' </a>';
@@ -86,7 +87,6 @@ class c_chat extends CI_Controller
 		$count = $query->row();
 		if ($count->COUNT < 1){
 			echo '<li class="in">';
-				// echo '<img class="avatar" width="20px" alt="" src="'.base_url().'assets/img/pln.PNG"/>';
 			echo	'<div class="message">';
 			echo		'<span class="arrow"></span>';
 			echo		'<a href="#" class="name">SYSTEM </a>';
@@ -104,14 +104,7 @@ class c_chat extends CI_Controller
 					$status="in";
 				}
 				echo '<li class="'.$status.'">';
-				if($key->FOTO=="")
-				{
-					// echo '<img class="avatar" width="20px" alt="" src="'.base_url().'assets/img/dp/no-img.jpg"/>';
-				}
-				else
-				{
-					// echo '<img class="avatar" width="20px" alt="" src="'.base_url().'assets/img/dp/'.$key->FOTO.'"/>';
-				}
+				
 				echo	'<div style="margin :0px 15px 0px 15px;" class="message">';
 				echo		'<span class="arrow"></span>';
 				echo		'<a href="#" style="font-size: 11px; font-weight : bold;" class="name">'.$key->NAMA.' </a>';
@@ -129,14 +122,7 @@ class c_chat extends CI_Controller
 		}
 	}
 
-	public function insert_pesan(){
-		$data['pesan'] = $_POST['pesan'];
-		$data = $this->m_chat->insertPesan($data);
-		if($data >= 1){
-			echo "<span style='color:green;'>pesan terkirim...</span>";
-			redirect('chat/tampil_pesan');
-		}
-	}
+	
 
 }
 ?>
