@@ -1,148 +1,114 @@
 <?php
-	class M_pelanggantr extends CI_Model
+class M_pelanggantr extends CI_Model
+{
+	function __construct()
 	{
-		function __construct()
-		 {
-		  parent::__construct();
-		 }
+		parent::__construct();
+	}
 
-
-		 function get_total_data_TR(){
-			$hasil=$this->db->query("SELECT COUNT(*) AS total FROM V_PELTR");
-			return $hasil;
-		}
-
-
-		function get_total_data_GMBR_TR(){
-			$hasil=$this->db->query("SELECT COUNT(*) AS total_survey FROM v_peltr WHERE (gmbr is null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
-			return $hasil;
-		}
-
-		function get_total_data_BAYAR_TR(){
-			$hasil=$this->db->query("SELECT COUNT(*) AS total_bayar FROM v_peltr WHERE (tgl_bayar is null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
-			return $hasil;
-		}
-
-		function get_total_data_RAB_TR(){
-			$hasil=$this->db->query("SELECT COUNT(*) AS total_rab FROM v_peltr WHERE (no_notadinas is null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
-			return $hasil;
-		}
-
-
-		function get_total_data_PELAKSANAAN_TR(){
-			$hasil=$this->db->query("SELECT COUNT(*) AS total_pelaksanaan FROM v_peltr WHERE (tgl_notdinkevendor is null and no_notadinas is not null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
-			return $hasil;
-		}
-
-		function get_total_data_NYALA_TR(){
-			$hasil=$this->db->query("SELECT COUNT(*) AS total_nyala FROM v_peltr WHERE (tgl_nyala is null and tgl_notdinkevendor is not null and no_notadinas is not null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
-			return $hasil;
-		}
-
-
-		function showppareafromdb()
-		{
-			$hasil=$this->db->query("SELECT * FROM V_PELTR ORDER BY NO ASC")->result();
+	function showppareafromdb()
+	{
+		$hasil=$this->db->query("SELECT * FROM V_PELTR ORDER BY NO ASC")->result();
 			//$hasil=$this->db->query("SELECT * FROM pp_areatr ORDER BY NO ASC")->result();
-			return $hasil;
-		}
+		return $hasil;
+	}
 
-		function showfilter($data)
+	function showfilter($data)
+	{
+		$field=$data['field'];
+		$key=$data['key'];
+		if ($field=="NO")
 		{
-			$field=$data['field'];
-			$key=$data['key'];
-			if ($field=="NO")
-			{
-				$hasil=$this->db->query("SELECT * FROM V_PELTR WHERE ".$field."='".$key."'")->result();
-			}
-			else
-			{
-				$hasil=$this->db->query("SELECT * FROM V_PELTR WHERE ".$field." LIKE '%".$key."%'")->result();
-			}
-			return $hasil;
+			$hasil=$this->db->query("SELECT * FROM V_PELTR WHERE ".$field."='".$key."'")->result();
 		}
-
-		function deletedatafromdb($id)
+		else
 		{
-			$this->db->query("DELETE FROM konstruksitr WHERE no = '".$id."'");
-			$this->db->query("DELETE FROM perencanaantr WHERE no = '".$id."'");
-			$this->db->query("DELETE FROM laintr WHERE no = '".$id."'");
-			$this->db->query("DELETE FROM uploadryntr WHERE no_pelanggan = '".$id."'");
-			$query="DELETE FROM pp_areatr WHERE no = '".$id."'";
-			$hasil=$this->db->query($query);
-			return $hasil;
+			$hasil=$this->db->query("SELECT * FROM V_PELTR WHERE ".$field." LIKE '%".$key."%'")->result();
 		}
+		return $hasil;
+	}
 
-		function showdataedit($id)
-		{
-			$hasil=$this->db->query("SELECT * FROM v_peltr WHERE no='".$id."'");
-			return $hasil;
-		}
+	function deletedatafromdb($id)
+	{
+		$this->db->query("DELETE FROM konstruksitr WHERE no = '".$id."'");
+		$this->db->query("DELETE FROM perencanaantr WHERE no = '".$id."'");
+		$this->db->query("DELETE FROM laintr WHERE no = '".$id."'");
+		$this->db->query("DELETE FROM uploadryntr WHERE no_pelanggan = '".$id."'");
+		$query="DELETE FROM pp_areatr WHERE no = '".$id."'";
+		$hasil=$this->db->query($query);
+		return $hasil;
+	}
 
-		function updatetrtodb($data)
-		{
-			$no=$data['a'];
-			$b=$data['b'];
-			$c=$data['c'];
-			$d=$data['d'];
-			$e=$data['e'];
-			$f=$data['f'];
-			$g=$data['g'];
-			$h=$data['h'];
-			$i=$data['i'];
-			$j=$data['j'];
-			$k=$data['k'];
-			$l=$data['l'];
-			$m=$data['m'];
-			$n=$data['n'];
-			$o=$data['o'];
-			$p=$data['p'];
+	function showdataedit($id)
+	{
+		$hasil=$this->db->query("SELECT * FROM v_peltr WHERE no='".$id."'");
+		return $hasil;
+	}
 
-			$a1=$data['a1'];
-			$b1=$data['b1'];
-			$c1=$data['c1'];
-			$d1=$data['d1'];
+	function updatetrtodb($data)
+	{
+		$no=$data['a'];
+		$b=$data['b'];
+		$c=$data['c'];
+		$d=$data['d'];
+		$e=$data['e'];
+		$f=$data['f'];
+		$g=$data['g'];
+		$h=$data['h'];
+		$i=$data['i'];
+		$j=$data['j'];
+		$k=$data['k'];
+		$l=$data['l'];
+		$m=$data['m'];
+		$n=$data['n'];
+		$o=$data['o'];
+		$p=$data['p'];
 
-			$a2=$data['a2'];
-			$b2=$data['b2'];
-			$c2=$data['c2'];
-			$d2=$data['d2'];
-			$e2=$data['e2'];
-			$f2=$data['f2'];
-			$g2=$data['g2'];
-			$h2=$data['h2'];
-			$i2=$data['i2'];
-			$j2=$data['j2'];
-			$k2=$data['k2'];
-			$l2=$data['l2'];
-			$m2=$data['m2'];
-			$n2=$data['n2'];
-			$o2=$data['o2'];
-			$p2=$data['p2'];
-			$q2=$data['q2'];
-			$r2=$data['r2'];
-			$s2=$data['s2'];
-			$t2=$data['t2'];
-			$u2=$data['u2'];
-			$v2=$data['v2'];
-			$w2=$data['w2'];
-			$x2=$data['x2'];
+		$a1=$data['a1'];
+		$b1=$data['b1'];
+		$c1=$data['c1'];
+		$d1=$data['d1'];
 
-			$a3=$data['a3'];
-			$b3=$data['b3'];
-			$c3=$data['c3'];
-			$d3=$data['d3'];
-			$e3=$data['e3'];
-			$f3=$data['f3'];
-			$g3=$data['g3'];
-			$h3=$data['h3'];
-			$i3=$data['i3'];
-			$j3=$data['j3'];
-			$k3=$data['k3'];
-			$l3=$data['l3'];
-			$m3=$data['m3'];
+		$a2=$data['a2'];
+		$b2=$data['b2'];
+		$c2=$data['c2'];
+		$d2=$data['d2'];
+		$e2=$data['e2'];
+		$f2=$data['f2'];
+		$g2=$data['g2'];
+		$h2=$data['h2'];
+		$i2=$data['i2'];
+		$j2=$data['j2'];
+		$k2=$data['k2'];
+		$l2=$data['l2'];
+		$m2=$data['m2'];
+		$n2=$data['n2'];
+		$o2=$data['o2'];
+		$p2=$data['p2'];
+		$q2=$data['q2'];
+		$r2=$data['r2'];
+		$s2=$data['s2'];
+		$t2=$data['t2'];
+		$u2=$data['u2'];
+		$v2=$data['v2'];
+		$w2=$data['w2'];
+		$x2=$data['x2'];
 
-			date_default_timezone_set('Asia/Jakarta');
+		$a3=$data['a3'];
+		$b3=$data['b3'];
+		$c3=$data['c3'];
+		$d3=$data['d3'];
+		$e3=$data['e3'];
+		$f3=$data['f3'];
+		$g3=$data['g3'];
+		$h3=$data['h3'];
+		$i3=$data['i3'];
+		$j3=$data['j3'];
+		$k3=$data['k3'];
+		$l3=$data['l3'];
+		$m3=$data['m3'];
+
+		date_default_timezone_set('Asia/Jakarta');
 			$tgl1 = $k; // tanggal bayar
 			$tgl2 = $d1;
 			$tgl3 = $n; // tanggal pdl
@@ -342,6 +308,47 @@
 			return $hasil;
 		}
 
+		function get_total_data_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total FROM V_PELTR");
+			return $hasil;
+		}
+
+		function get_total_data_by_rayon_TR($nama_rayon){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total FROM V_PELTR where NAMA_RYN = '" .$nama_rayon ."' AND (STATUS_PERMOHONAN <> 'RESTITUSI' OR STATUS_PERMOHONAN IS NULL) AND TGL_BAYAR IS NOT NULL");
+			return $hasil;
+		}
+
+		function get_detail_data_by_rayon_TR($nama_rayon){
+			$hasil=$this->db->query("SELECT * FROM V_PELTR where NAMA_RYN = '" .$nama_rayon ."' AND (STATUS_PERMOHONAN <> 'RESTITUSI' OR STATUS_PERMOHONAN IS NULL) AND TGL_BAYAR IS NOT NULL");
+			return $hasil;
+		}
+
+		function get_total_data_GMBR_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_survey FROM v_peltr WHERE (gmbr is null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_BAYAR_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_bayar FROM v_peltr WHERE (tgl_bayar is null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_RAB_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_rab FROM v_peltr WHERE (no_notadinas is null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+
+		function get_total_data_PELAKSANAAN_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_pelaksanaan FROM v_peltr WHERE (tgl_notdinkevendor is null and no_notadinas is not null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
+		function get_total_data_NYALA_TR(){
+			$hasil=$this->db->query("SELECT COUNT(*) AS total_nyala FROM v_peltr WHERE (tgl_nyala is null and tgl_notdinkevendor is not null and no_notadinas is not null and tgl_bayar is not null and gmbr is not null) and (status_permohonan != 'RESTITUSI' or status_permohonan is null)");
+			return $hasil;
+		}
+
 		function get_data_filter_by_menu($keyword){
 			if ($keyword == "survey") {
 				$statementWhere = "(gmbr is null)";
@@ -375,7 +382,9 @@
 			return $hasil;
 		}
 
-		
-
+		public function getRayon($rayon){
+			$hasil = $this->db->query("SELECT * FROM V_PELTR WHERE ID_RYN = '".$rayon."'");
+			return $hasil;
+		}
 	}
-?>
+	?>
